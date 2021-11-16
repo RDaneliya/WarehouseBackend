@@ -7,10 +7,14 @@ x-logging-rule: &logging-rules
       max-size: 20m
       max-file: "10"
 
+volumes:
+  db-data:
+  db-data-dump:
+
 networks:
   backend:
     name: backend
-    external: true
+    external: false
     driver: bridge
 
 services:
@@ -19,6 +23,9 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
       - db-data-dump:/docker-entrypoint-initdb.d/
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
     ports:
     - 5432:5432
     networks:
