@@ -35,5 +35,5 @@ CREATE TABLE waybill_commodity
     waybill_id BIGINT NOT NULL,
     amount BIGINT NOT NULL,
     FOREIGN KEY (vendor_code) REFERENCES commodity(vendor_code),
-    FOREIGN KEY (waybill_id) REFERENCES  waybill(id)
+    FOREIGN KEY (waybill_id) REFERENCES  waybill (id)
 )
