@@ -1,10 +1,8 @@
 package com.warehouse.inventory.infrastructure.database.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -18,14 +16,15 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 import java.util.Objects;
 
-@Table(name = "counterparty", indexes = {
+@Table(
+    name = "counterparty",
+    indexes = {
         @Index(name = "counterparty_name_key", columnList = "name", unique = true)
-})
+    })
 @Entity
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 public class CounterpartyEntity {
