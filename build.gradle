@@ -1,13 +1,15 @@
 plugins {
     id 'org.springframework.boot' version '2.5.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "org.flywaydb.flyway" version "8.0.5"
     id 'java'
     id 'org.hibernate.orm'
 }
 
 group = 'com.warehouse'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
+targetCompatibility = '17'
 
 configurations {
     compileOnly {
@@ -21,26 +23,29 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.5.5'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
-    implementation 'org.springframework.boot:spring-boot-starter-integration:2.5.5'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.5.5'
-    implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.5'
-    implementation 'org.springframework.integration:spring-integration-http:5.5.4'
-    implementation 'org.springframework.integration:spring-integration-jpa:5.5.4'
-    implementation 'org.springframework.integration:spring-integration-zeromq:5.5.4'
-    implementation 'org.postgresql:postgresql:42.2.24'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.5.6'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.6'
+    implementation 'org.springframework.boot:spring-boot-starter-integration:2.5.6'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.6'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.5.6'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.6'
+    implementation 'org.springframework.integration:spring-integration-http:5.5.5'
+    implementation 'org.springframework.integration:spring-integration-jpa:5.5.5'
+    implementation 'org.springframework.integration:spring-integration-zeromq:5.5.5'
+    implementation 'org.postgresql:postgresql:42.3.1'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    implementation 'org.flywaydb:flyway-core:8.0.5'
+    implementation 'io.swagger.core.v3:swagger-annotations:2.1.11'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.5.12'
 
     compileOnly 'org.projectlombok:lombok:1.18.22'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.5'
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.5.5'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.6'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.5.6'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
-    testImplementation 'org.springframework.integration:spring-integration-test:5.5.4'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.6'
+    testImplementation 'org.springframework.integration:spring-integration-test:5.5.5'
 }
 
 test {
@@ -56,12 +61,16 @@ hibernate {
     }
 }
 
-//flyway {
-//    url = System.getenv('DB_URL')
-//    user = System.getenv('DB_USER')
-//    password = System.getenv('DB_PASSWORD')
-//    schemas = ['public']
-//    createSchemas = false
-//    locations = ['classpath:db/migration']
-//    sqlMigrationSuffixes = ['.sql']
-//}
+bootJar{
+    archiveFileName = 'warehouse-backend.jar'
+}
+
+flyway {
+    url = System.getenv('POSTGRES_URL')
+    user = System.getenv('POSTGRES_PASSWORD')
+    password = System.getenv('POSTGRES_USER')
+    schemas = ['public']
+    createSchemas = false
+    locations = ['classpath:db/migrations']
+    sqlMigrationSuffixes = ['.sql']
+}
