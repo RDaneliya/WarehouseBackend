@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  datasource:
+    url: ${POSTGRES_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  flyway:
+    enabled: true
+    locations: classpath:db/migrations
+springdoc:
+  api-docs:
+    enabled: true
