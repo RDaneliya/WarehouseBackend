@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommodityResponseItem {
-    private Long vendorCode;
+    private String vendorCode;
     private String name;
 }

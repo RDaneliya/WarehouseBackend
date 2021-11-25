@@ -12,12 +12,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Objects;
 
-@Table(name = "waybill")
+@Table(name = "waybill", indexes = {
+    @Index(name = "idx_waybillentity", columnList = "counterparty"),
+    @Index(name = "idx_waybillentity_type", columnList = "type")
+})
 @Entity
 @Getter
 @Setter
