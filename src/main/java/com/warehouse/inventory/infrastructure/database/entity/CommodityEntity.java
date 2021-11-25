@@ -28,7 +28,6 @@ import java.util.Objects;
 public class CommodityEntity {
     @Id
     @Column(name = "vendor_code", nullable = false, unique = true)
-
     private String vendorCode;
 
     @Column(name = "name", nullable = false, unique = true)

@@ -5,7 +5,6 @@ import com.warehouse.inventory.infrastructure.database.repositories.CommodityRep
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
@@ -23,7 +22,7 @@ public class CommodityEndpoint {
     @GetMapping(produces = "application/json", value = "{vendorCode}")
     @ResponseBody
     @Transactional
-    public CommodityResponseItem getCommodityByCode(@PathVariable Long vendorCode) {
+    public CommodityResponseItem getCommodityByCode(@PathVariable String vendorCode) {
         var commodity = repository.getByVendorCode(vendorCode);
         return mapper.toResponseItem(commodity);
     }
@@ -58,8 +57,8 @@ public class CommodityEndpoint {
     @DeleteMapping(value = "{vendorCode}")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
-    public void deleteCommodity(@PathVariable Long vendorCode){
-        if(!repository.existsById(vendorCode)){
+    public void deleteCommodity(@PathVariable String vendorCode) {
+        if (!repository.existsById(vendorCode)) {
             throw new EntityNotFoundException();
         }
 
