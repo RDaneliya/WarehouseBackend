@@ -15,9 +15,10 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Table(
-    name = "commodity",
-    indexes = @Index(name = "commodity_name_key", columnList = "name", unique = true)
-)
+    name = "commodity", indexes = {
+    @Index(name = "idx_commodityentity", columnList = "vendor_code"),
+    @Index(name = "idx_commodityentity_name", columnList = "name")
+})
 @Entity
 @Getter
 @Setter
@@ -28,7 +29,7 @@ public class CommodityEntity {
     @Id
     @Column(name = "vendor_code", nullable = false, unique = true)
 
-    private Long vendorCode;
+    private String vendorCode;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
