@@ -1,7 +1,7 @@
 CREATE TABLE commodity
 (
-    vendor_code BIGINT PRIMARY KEY,
-    name VARCHAR NOT NULL UNIQUE
+    vendor_code VARCHAR PRIMARY KEY,
+    name        VARCHAR NOT NULL UNIQUE
 );
 
 CREATE TABLE zone
