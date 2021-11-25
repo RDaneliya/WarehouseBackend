@@ -14,7 +14,7 @@ import javax.persistence.EntityNotFoundException;
 public class ApiExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public void handleEntityNotFoundException(EntityNotFoundException e){
         log.warn("Entity not found", e);
     }

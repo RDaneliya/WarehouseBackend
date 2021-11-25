@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class CommodityRequest {
-    private final Long vendorCode;
+    private final String vendorCode;
     private final String name;
 }
