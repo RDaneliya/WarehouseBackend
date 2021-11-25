@@ -2,7 +2,7 @@ FROM gradle:7.3.0-jdk17 as builder
 WORKDIR /source
 COPY --chown=gradle:gradle build.gradle ./
 COPY --chown=gradle:gradle settings.gradle ./
-COPY --chown=gradle:gradle .gradle ./
+COPY --chown=gradle:gradle ./gradle ./
 COPY --chown=gradle:gradle ./src ./src/
 RUN gradle --no-daemon --console=plain bootJar
 
