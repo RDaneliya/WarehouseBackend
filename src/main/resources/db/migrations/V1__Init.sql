@@ -6,12 +6,12 @@ CREATE TABLE commodity
 
 CREATE TABLE zone
 (
-    id BIGSERIAL PRIMARY KEY,
-    commodity_type BIGINT,
-    amount BIGINT,
-    row BIGINT,
-    "column" BIGINT,
-    FOREIGN KEY (commodity_type) REFERENCES commodity(vendor_code)
+    id             BIGSERIAL PRIMARY KEY,
+    commodity_type VARCHAR,
+    amount         BIGINT,
+    row            BIGINT,
+    "column"       BIGINT,
+    FOREIGN KEY (commodity_type) REFERENCES commodity (vendor_code)
 );
 
 CREATE TABLE counterparty
@@ -30,10 +30,10 @@ CREATE TABLE waybill
 
 CREATE TABLE waybill_commodity
 (
-    id BIGSERIAL PRIMARY KEY,
-    vendor_code BIGINT NOT NULL,
-    waybill_id BIGINT NOT NULL,
-    amount BIGINT NOT NULL,
-    FOREIGN KEY (vendor_code) REFERENCES commodity(vendor_code),
-    FOREIGN KEY (waybill_id) REFERENCES  waybill (id)
+    id          BIGSERIAL PRIMARY KEY,
+    vendor_code VARCHAR NOT NULL,
+    waybill_id  BIGINT  NOT NULL,
+    amount      BIGINT  NOT NULL,
+    FOREIGN KEY (vendor_code) REFERENCES commodity (vendor_code),
+    FOREIGN KEY (waybill_id) REFERENCES waybill (id)
 )
