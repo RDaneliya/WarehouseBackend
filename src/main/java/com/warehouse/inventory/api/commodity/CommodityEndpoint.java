@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,12 +29,32 @@ public class CommodityEndpoint {
         return mapper.toResponseItem(commodity);
     }
 
+    @GetMapping(produces = "application/json", value = "/all")
+    @ResponseBody
+    @Transactional
+    public List<CommodityResponseItem> getAllCommodities() {
+        return repository.findAll()
+            .stream()
+            .map(mapper::toResponseItem)
+            .collect(Collectors.toList());
+    }
+
+    @GetMapping(produces = "application/json", value = "/search/{substring}")
+    @ResponseBody
+    @Transactional
+    public List<CommodityResponseItem> findCommoditiesBySubstring(@PathVariable String substring) {
+        return repository.findByNameContaining(substring)
+            .stream()
+            .map(mapper::toResponseItem)
+            .collect(Collectors.toList());
+    }
+
     @PostMapping()
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     public void saveCommodity(@RequestBody CommodityRequest request) {
         var id = request.getVendorCode();
-        if(repository.existsById(id)){
+        if (repository.existsById(id)) {
             throw new EntityExistsException();
         }
 
