@@ -1,6 +1,5 @@
-package com.warehouse.inventory.extensions.mappers.swagger;
+package com.warehouse.inventory.extensions.swagger;
 
-import io.swagger.v3.oas.models.OpenAPI;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,4 @@ public class SwaggerConfig {
             .pathsToMatch("/api/**")
             .build();
     }
-
-//    @Bean
-//    public OpenAPI openAPI()
 }
