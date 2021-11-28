@@ -64,11 +64,11 @@ public class CommodityEndpoint {
         log.debug("Added new entity to Commodities");
     }
 
-    @PutMapping()
+    @PutMapping(value = "{vendorCode}")
     @Transactional
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void editCommodity(@RequestBody CommodityRequest request){
-        if (!repository.existsById(request.getVendorCode())) {
+    public void editCommodity(@PathVariable String vendorCode, @RequestBody CommodityRequest request) {
+        if (!repository.existsById(vendorCode)) {
             throw new EntityNotFoundException();
         }
         var entity = repository.getByVendorCode(request.getVendorCode());
