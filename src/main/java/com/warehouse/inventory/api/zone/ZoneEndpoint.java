@@ -39,6 +39,8 @@ public class ZoneEndpoint {
         return mapper.toResponseItem(entity);
     }
 
+    @GetMapping(produces = "application/json", value = "{vendor-code}")
+
     @PostMapping()
     @Transactional
     public void createZone(@RequestBody ZoneRequest request) {

@@ -21,10 +21,10 @@ public class CommodityEndpoint {
     private final CommodityRepository repository;
     private final CommodityMapper mapper;
 
-    @GetMapping(produces = "application/json", value = "{vendorCode}")
+    @GetMapping(produces = "application/json", value = "{vendor-code}")
     @ResponseBody
     @Transactional
-    public CommodityResponseItem getCommodityByCode(@PathVariable String vendorCode) {
+    public CommodityResponseItem getCommodityByCode(@PathVariable("vendor-code") String vendorCode) {
         var commodity = repository.getByVendorCode(vendorCode);
         return mapper.toResponseItem(commodity);
     }
@@ -76,10 +76,10 @@ public class CommodityEndpoint {
         repository.save(entity);
     }
 
-    @DeleteMapping(value = "{vendorCode}")
+    @DeleteMapping(value = "{vendor-code}")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
-    public void deleteCommodity(@PathVariable String vendorCode) {
+    public void deleteCommodity(@PathVariable("vendor-code") String vendorCode) {
         if (!repository.existsById(vendorCode)) {
             throw new EntityNotFoundException();
         }
