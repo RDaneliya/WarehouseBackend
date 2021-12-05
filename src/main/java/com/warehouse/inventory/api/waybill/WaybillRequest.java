@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class WaybillRequest {
     private final String type;
-    private final String counterparty;
+    private final Long counterpartyId;
     private final List<WaybillCommodityRequestItem> commodities;
     private final Timestamp createdAt;
 }

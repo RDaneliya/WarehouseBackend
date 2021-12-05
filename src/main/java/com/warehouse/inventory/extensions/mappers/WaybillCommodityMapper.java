@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface WaybillCommodityMapper {
     @Mappings(
-        @Mapping(source = "commodity.vendorCode", target = "vendorCode")
+        @Mapping(source = "commodity.name", target = "name")
     )
     WaybillCommodityResponseItem toResponse(WaybillCommodityEntity entity);
 

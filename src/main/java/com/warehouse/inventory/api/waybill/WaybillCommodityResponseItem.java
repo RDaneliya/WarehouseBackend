@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class WaybillCommodityResponseItem {
-    private String vendorCode;
+    private String name;
     private Long amount;
 }

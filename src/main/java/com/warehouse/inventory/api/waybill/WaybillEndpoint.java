@@ -58,7 +58,7 @@ public class WaybillEndpoint {
         checkCommodityExistence(request);
         checkCounterparty(request);
         var unmanagedWaybill = new WaybillEntity();
-        var counterparty = counterpartyRepository.findCounterpartyEntityByName(request.getCounterparty());
+        var counterparty = counterpartyRepository.getById(request.getCounterpartyId());
         unmanagedWaybill.setCounterpartyEntity(counterparty);
         unmanagedWaybill.setCreatedAt(request.getCreatedAt());
         unmanagedWaybill.setType(request.getType());
@@ -66,8 +66,7 @@ public class WaybillEndpoint {
         var commodities = request.getCommodities().stream()
             .map(commodityItem -> {
                 var commodity = new WaybillCommodityEntity();
-                var commodityType = commodityRepository.getByName(commodityItem.getName());
-                var reference = commodityRepository.getByName(commodityItem.getName());
+                var reference = commodityRepository.getByVendorCode(commodityItem.getVendorCode());
                 commodity.setCommodity(reference);
                 commodity.setAmount(commodityItem.getAmount());
                 return commodity;
@@ -79,7 +78,7 @@ public class WaybillEndpoint {
 
 
     private void checkCounterparty(WaybillRequest request) {
-        if (!counterpartyRepository.existsByName(request.getCounterparty())) {
+        if (!counterpartyRepository.existsById(request.getCounterpartyId())) {
             throw new EntityNotFoundException("No such counterparty");
         }
     }
@@ -87,9 +86,9 @@ public class WaybillEndpoint {
     private void checkCommodityExistence(WaybillRequest request) {
         request.getCommodities()
             .forEach(item -> {
-                    if (!commodityRepository.existsByName(item.getName())) {
-                        throw new EntityNotFoundException("No such commodity");
-                    }
+                if (!commodityRepository.existsById(item.getVendorCode())) {
+                    throw new EntityNotFoundException("No such commodity");
+                }
                 }
             );
     }
