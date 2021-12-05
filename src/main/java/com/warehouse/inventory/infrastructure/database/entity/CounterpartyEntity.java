@@ -19,7 +19,7 @@ import java.util.Objects;
 @Table(
     name = "counterparty",
     indexes = {
-        @Index(name = "counterparty_name_key", columnList = "name", unique = true)
+        @Index(name = "counterparty_name", columnList = "name", unique = true)
     })
 @Entity
 @Getter

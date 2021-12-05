@@ -8,4 +8,6 @@ public interface CounterpartyRepository extends JpaRepository<CounterpartyEntity
     CounterpartyEntity getCounterpartyEntityById(@NonNull Long id);
 
     CounterpartyEntity findCounterpartyEntityByName(String name);
+
+    boolean existsByName(String name);
 }

@@ -7,14 +7,21 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Table(name = "waybill_commodity")
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"commodity", "waybill"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class WaybillCommodityEntity {
@@ -23,15 +30,13 @@ public class WaybillCommodityEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "vendor_code", nullable = false)
-    @ToString.Exclude
-    private CommodityEntity vendorCode;
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false, name = "vendor_code")
+    private CommodityEntity commodity;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "waybill_id", nullable = false)
-    @ToString.Exclude
-    private WaybillEntity waybillEntity;
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false, name = "waybill_id")
+    private WaybillEntity waybill;
 
     @Column(name = "amount", nullable = false)
     private Long amount;

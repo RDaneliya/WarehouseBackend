@@ -15,13 +15,19 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void handleEntityNotFoundException(EntityNotFoundException e){
+    public void handleEntityNotFoundException(EntityNotFoundException e) {
         log.warn("Entity not found", e);
     }
 
     @ExceptionHandler(EntityExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public void handleEntityExistsException(EntityExistsException e){
+    public void handleEntityExistsException(EntityExistsException e) {
         log.warn("Entity already exists", e);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void handleIllegalArgumentException(IllegalArgumentException e) {
+        log.error("Invalid argument", e);
     }
 }

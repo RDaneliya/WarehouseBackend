@@ -4,6 +4,7 @@ spring:
     hibernate:
       ddl-auto: validate
     open-in-view: false
+    show-sql: false
   datasource:
     url: ${POSTGRES_URL}
     username: ${POSTGRES_USER}

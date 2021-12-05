@@ -3,15 +3,8 @@ package com.warehouse.inventory.api.counterparty;
 import com.warehouse.inventory.extensions.mappers.CounterpartyMapper;
 import com.warehouse.inventory.infrastructure.database.repositories.CounterpartyRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -46,8 +39,20 @@ public class CounterpartyEndpoint {
         return mapper.toResponseItem(entity);
     }
 
+    @GetMapping("{name}")
+    @ResponseBody
+    @Transactional
+    public CounterpartyResponseItem getAllCounterparties(@PathVariable String name) {
+        var entity = repository.findCounterpartyEntityByName(name);
+        if (entity == null) {
+            throw new EntityNotFoundException();
+        }
+        return mapper.toResponseItem(entity);
+    }
+
     @PostMapping()
     @Transactional
+    @ResponseStatus(HttpStatus.CREATED)
     public void createCounterparty(@RequestBody CounterpartyRequest request) {
         var entity = mapper.toEntity(request);
         repository.save(entity);

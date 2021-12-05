@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Table(name = "zone", indexes = {
-    @Index(name = "idx_zoneentity_commodity_type", columnList = "commodity_type")
+    @Index(name = "idx_zone_commodity_type", columnList = "commodity_type")
 })
 @Entity
 @Getter

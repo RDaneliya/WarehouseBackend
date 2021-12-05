@@ -9,8 +9,11 @@ import java.util.List;
 public interface CommodityRepository extends JpaRepository<CommodityEntity, String> {
     List<CommodityEntity> findByNameContaining(String substring);
 
-    List<CommodityEntity> findByName(String name);
+    CommodityEntity findByName(String name);
 
     CommodityEntity getByVendorCode(@NonNull String id);
 
+    boolean existsByName(String name);
+
+    CommodityEntity getByName(@NonNull String name);
 }

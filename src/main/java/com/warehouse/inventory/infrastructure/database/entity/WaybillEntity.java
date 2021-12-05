@@ -7,20 +7,15 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Table(name = "waybill", indexes = {
-    @Index(name = "idx_waybillentity", columnList = "counterparty"),
-    @Index(name = "idx_waybillentity_type", columnList = "type")
+    @Index(name = "idx_waybill_counterparty", columnList = "counterparty"),
+    @Index(name = "idx_waybill_type", columnList = "type")
 })
 @Entity
 @Getter
@@ -40,6 +35,12 @@ public class WaybillEntity {
     @ManyToOne
     @JoinColumn(name = "counterparty")
     private CounterpartyEntity counterpartyEntity;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "waybill")
+    private List<WaybillCommodityEntity> commodityEntities = new ArrayList<>();
+
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
     @Override
     public boolean equals(Object o) {
