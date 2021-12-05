@@ -10,6 +10,7 @@ import com.warehouse.inventory.infrastructure.database.repositories.WaybillRepos
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,10 +38,17 @@ public class WaybillEndpoint {
     @Transactional
     @ResponseBody
     public List<WaybillResponseItem> getAll() {
-        var entities = waybillRepository.findAll();
-        return entities.stream()
+        return waybillRepository.findAll().stream()
             .map(mapper::toResponseItem)
             .collect(Collectors.toList());
+    }
+
+    @GetMapping("{date}")
+    @Transactional
+    @ResponseBody
+    public WaybillResponseItem getByDate(@PathVariable Timestamp date) {
+        var entity = waybillRepository.getByCreatedAt(date);
+        return mapper.toResponseItem(entity);
     }
 
     @PostMapping()
