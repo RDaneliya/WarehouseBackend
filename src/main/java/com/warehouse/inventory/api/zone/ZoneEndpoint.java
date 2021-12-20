@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +29,16 @@ public class ZoneEndpoint {
     private final CommodityRepository commodityRepository;
     private final ZoneRepository zoneRepository;
     private final ZoneMapper mapper;
+
+    @GetMapping(produces = "application/json", value = "/all")
+    @ResponseBody
+    @Transactional
+    public List<ZoneResponseItem> getZones() {
+        return zoneRepository.findAll()
+            .stream()
+            .map(mapper::toResponseItem)
+            .collect(Collectors.toList());
+    }
 
     @GetMapping(produces = "application/json", value = "{id}")
     @ResponseBody
