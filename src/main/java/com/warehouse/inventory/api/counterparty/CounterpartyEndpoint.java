@@ -39,7 +39,7 @@ public class CounterpartyEndpoint {
         return mapper.toResponseItem(entity);
     }
 
-    @GetMapping("{name}")
+    @GetMapping("/search/{name}")
     @ResponseBody
     @Transactional
     public CounterpartyResponseItem getAllCounterparties(@PathVariable String name) {
